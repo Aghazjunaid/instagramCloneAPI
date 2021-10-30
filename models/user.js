@@ -18,7 +18,7 @@ var UserSchema = new Schema({
           fullname:String ,
           username:String ,
           image: String,
-          followedBy: { type: ObjectId, ref: "User" },
+          followedBy: { type: Schema.Types.ObjectId, ref: "user" },
         },
       ],
       following: [
@@ -26,7 +26,7 @@ var UserSchema = new Schema({
           fullname:String ,
           username:String ,
           image: String,
-          followingBy: { type: ObjectId, ref: "User" },
+          followingBy: { type: Schema.Types.ObjectId, ref: "user" },
         },
       ],
 }, {timestamps: true});

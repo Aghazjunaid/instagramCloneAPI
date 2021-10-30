@@ -20,9 +20,7 @@ app.use(apiRouter)
 var mongoUrl = 'mongodb://127.0.0.1/instagram'
 mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
+  useUnifiedTopology: true
 });
 
 
