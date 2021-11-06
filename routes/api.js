@@ -16,6 +16,7 @@ apiRouter.post('/register', user.registerUser);
 apiRouter.post('/login', user.loginUser);
 apiRouter.get('/ownProfile', utils.authenticateToken , user.getOwnProfile);
 apiRouter.post('/upload/ProfileImage', utils.authenticateToken , upload.single('image'), user.updateProfileImage);
+apiRouter.post('/editOwnProfile', utils.authenticateToken , user.editOwnProfile);
 
 
 module.exports = apiRouter;
