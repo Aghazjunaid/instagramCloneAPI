@@ -21,6 +21,7 @@ apiRouter.post('/editOwnProfile', utils.authenticateToken , user.editOwnProfile)
 //===============posts api==================
 apiRouter.post('/addPost', utils.authenticateToken, upload.single('image'), post.addPost);
 apiRouter.get('/getAllPosts', utils.authenticateToken , post.getAllPosts);
+apiRouter.get('/getPost/:id', utils.authenticateToken , post.getPostById);
 
 
 module.exports = apiRouter;
