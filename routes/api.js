@@ -5,7 +5,7 @@ const upload = multer()
 
 utils = require('../utils/utils')();
 user = require('./user')();
-
+post = require('./post')();
 
 apiRouter.get('', (req, res) => {
     res.status(200).send("Node api demo")
@@ -17,6 +17,9 @@ apiRouter.post('/login', user.loginUser);
 apiRouter.get('/ownProfile', utils.authenticateToken , user.getOwnProfile);
 apiRouter.post('/upload/ProfileImage', utils.authenticateToken , upload.single('image'), user.updateProfileImage);
 apiRouter.post('/editOwnProfile', utils.authenticateToken , user.editOwnProfile);
+
+//===============posts api==================
+apiRouter.post('/addPost', utils.authenticateToken, upload.single('image'), post.addPost);
 
 
 module.exports = apiRouter;
