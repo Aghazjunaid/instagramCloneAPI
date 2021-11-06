@@ -1,6 +1,7 @@
 const User = require("../models/user")
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Post = require("../models/posts")
 
 module.exports = () => {
     
@@ -138,11 +139,28 @@ module.exports = () => {
         res.json(return_response);
     }
 
+    //================Get All Users Posts======================================
+    async function getAllUsersPosts(req,res){
+        var return_response = { "status": null, "message": null, "data": {} } 
+        try {
+            const doc = await Post.find({"postedBy.id" : req.user.id}).sort({ createdAt: -1 });
+            return_response.status = 200;
+            return_response.message = "Success";
+            return_response.data = doc;
+        } catch (error) {
+            return_response.status = 400;
+            return_response.message = String(error);
+        }
+        res.json(return_response);
+    }
+
+
     return {
         registerUser,
         loginUser,
         getOwnProfile,
         updateProfileImage,
-        editOwnProfile
+        editOwnProfile,
+        getAllUsersPosts
     }
 }

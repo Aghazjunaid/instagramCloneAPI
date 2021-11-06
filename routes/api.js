@@ -17,6 +17,7 @@ apiRouter.post('/login', user.loginUser);
 apiRouter.get('/ownProfile', utils.authenticateToken , user.getOwnProfile);
 apiRouter.post('/upload/ProfileImage', utils.authenticateToken , upload.single('image'), user.updateProfileImage);
 apiRouter.post('/editOwnProfile', utils.authenticateToken , user.editOwnProfile);
+apiRouter.get('/getAllUsersPosts', utils.authenticateToken , user.getAllUsersPosts);
 
 //===============posts api==================
 apiRouter.post('/addPost', utils.authenticateToken, upload.single('image'), post.addPost);
