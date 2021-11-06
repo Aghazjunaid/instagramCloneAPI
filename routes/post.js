@@ -49,11 +49,27 @@ module.exports = () =>{
         res.json(return_response);
     }
 
+    //=================Get Post By Id==========================================
+    async function getPostById(req,res){
+        var return_response = { "status": null, "message": null, "data": {} } 
+        try {
+            const doc = await Post.findOne({_id:req.params.id});
+            return_response.status = 200;
+            return_response.message = "Success";
+            return_response.data = doc;
+        } catch (error) {
+            return_response.status = 400;
+            return_response.message = String(error);
+        }
+        res.json(return_response);
+    }
+
 
 
 
     return {
         addPost,
-        getAllPosts
+        getAllPosts,
+        getPostById
     }
 }
