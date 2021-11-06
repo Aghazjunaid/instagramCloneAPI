@@ -119,10 +119,30 @@ module.exports = () => {
         return res.status(400).send(return_response);
     }
 
+    //===========================Edit Profile======================================
+    async function editOwnProfile(req,res){
+        var return_response = { "status": null, "message": null, "data": {} } 
+        try {
+            let opt = req.body;
+            const doc = await User.findOne({user:req.user.id});
+            doc.bio = opt.bio;
+            doc.fullname = opt.fullname;
+
+            return_response.status = 200;
+            return_response.message = "Profile Updated Successfully";
+            return_response.data = doc;
+        } catch (error) {
+            return_response.status = 400;
+            return_response.message = String(error);
+        }
+        res.json(return_response);
+    }
+
     return {
         registerUser,
         loginUser,
         getOwnProfile,
-        updateProfileImage
+        updateProfileImage,
+        editOwnProfile
     }
 }
