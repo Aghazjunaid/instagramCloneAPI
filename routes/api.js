@@ -11,7 +11,7 @@ apiRouter.get('', (req, res) => {
 
 //===============User api===================
 apiRouter.post('/register', user.registerUser);
-apiRouter.get('/login', user.loginUser);
+apiRouter.post('/login', user.loginUser);
 apiRouter.get('/ownProfile', utils.authenticateToken , user.getOwnProfile);
 
 
