@@ -64,12 +64,47 @@ module.exports = () =>{
         res.json(return_response);
     }
 
+    //=================Comment on Post=========================================
+    async function commentOnPost(req,res){
+        var return_response = { "status": null, "message": null, "data": {} } 
+        try {
+
+            const user = await User.findOne({_id: req.user.id});
+
+            const comment = {
+                text: req.body.text,
+                postedBy: req.user.id,
+                comentor: user.fullname,
+                comentorPic: user.profileImage
+            };
+             
+            let doc = await Post.findByIdAndUpdate(
+                req.params.id,
+                {
+                  $push: { comments: comment },
+                },
+                {
+                  new: true,
+                }
+            )
+
+            return_response.status = 200;
+            return_response.message = "Success";
+            return_response.data = doc;
+        } catch (error) {
+            return_response.status = 400;
+            return_response.message = String(error);
+        }
+        res.json(return_response);
+    }
+
 
 
 
     return {
         addPost,
         getAllPosts,
-        getPostById
+        getPostById,
+        commentOnPost
     }
 }

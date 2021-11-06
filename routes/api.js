@@ -23,6 +23,7 @@ apiRouter.get('/getAllUsersPosts', utils.authenticateToken , user.getAllUsersPos
 apiRouter.post('/addPost', utils.authenticateToken, upload.single('image'), post.addPost);
 apiRouter.get('/getAllPosts', utils.authenticateToken , post.getAllPosts);
 apiRouter.get('/getPost/:id', utils.authenticateToken , post.getPostById);
+apiRouter.post('/commentOnPost/:id', utils.authenticateToken , post.commentOnPost);
 
 
 module.exports = apiRouter;
