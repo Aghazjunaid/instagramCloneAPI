@@ -34,8 +34,26 @@ module.exports = () =>{
         res.json(return_response);
     }
 
+    //=================List All Posts==========================================
+    async function getAllPosts(req,res){
+        var return_response = { "status": null, "message": null, "data": {} } 
+        try {
+            const doc = await Post.find({}).sort({ createdAt: -1 });
+            return_response.status = 200;
+            return_response.message = "Success";
+            return_response.data = doc;
+        } catch (error) {
+            return_response.status = 400;
+            return_response.message = String(error);
+        }
+        res.json(return_response);
+    }
+
+
+
 
     return {
-        addPost
+        addPost,
+        getAllPosts
     }
 }
