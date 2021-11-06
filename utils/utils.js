@@ -1,5 +1,10 @@
 module.exports = () => {
     const jwt = require('jsonwebtoken');
+    const fs = require('fs');
+    const path = require("path")
+    const { Dropbox } = require('dropbox');
+    
+    const dbx = new Dropbox({ accessToken: 'RheQmmnnQhwAAAAAAAAAAayzzRTdi1VKfk2deE4Dqjqe0GWpfbuLF7dw65DDqiGn' });
 
     function authenticateToken(req, res, next) {
         const token = req.headers['authorization'];
@@ -15,6 +20,14 @@ module.exports = () => {
             })
         }
     }
+
+    function otpGenerator()
+  {
+    var otp = Math.random();
+    otp = otp*1000000;
+    otp = parseInt(otp);
+    return otp;
+  }
 
     function validateImage(file) {
         return_value = {"name": "", "status": false}
