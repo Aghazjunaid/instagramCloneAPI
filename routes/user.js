@@ -90,10 +90,39 @@ module.exports = () => {
         res.json(return_response);
     }
 
-    
+    //================================upload Profile Image=================================
+    async function updateProfileImage(req, res){
+        var return_response = {"status": 200,"message": "Success","data": null}
+        try {
+            var file = req.file; 
+            const user = await User.findOne({_id: req.user.id});
+            if(user){
+                var imageUrl = await utils.dropboxUpload(file);
+                if(imageUrl) {
+                    user.profileImage = imageUrl;
+                    let doc = await user.save();
+                    return_response["status"] = 200;
+                    return_response["message"] = "success";
+                    return_response["data"] = doc;
+                } else {
+                    return_response["status"] = 400;
+                    return_response["message"] = "Invalid request!";
+                }
+            } else {
+                return_response["status"] = 404;
+                return_response["message"] = "This User does not exist!";
+            }
+        } catch (error) {
+            return_response["message"] = String(error);
+            return_response["status"] = 400;
+        }
+        return res.status(400).send(return_response);
+    }
+
     return {
         registerUser,
         loginUser,
-        getOwnProfile
+        getOwnProfile,
+        updateProfileImage
     }
 }
